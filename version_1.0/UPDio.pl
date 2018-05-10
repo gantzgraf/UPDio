@@ -32,7 +32,7 @@ my %opt = (
     common_cnv_file          => "sample_data/common_dels_1percent.tsv",
     output_path              => cwd() . "/output_dir",
     R_scripts_dir            => "scripts",
-    path_to_R                => "/software/R-2.15.2/bin/R",				#notes: farm2 /software/R-2.14.1/bin/R   farm3 /software/team29/bin/R
+    path_to_R                => "",
     high_qual                => 0,
     testing                  => 0
 );
@@ -90,6 +90,13 @@ sub process_options {
         if (! -r $opt{$person} ) {
             die "FATAL: Cannot read supplied $person file\n. Check it exists and read permissions are enabled.\n"
         }
+    }
+    if (not $opt{path_to_R}){
+        my $rbin = which("R");
+        if (not $rbin){
+            die "Could not find R in PATH - use --path_to_R to specify location of R binary.\n";
+        }
+        $opt{path_to_R} = $rbin;
     }
     return { child_path => $opt{child_vcf}, 
 			 mom_path => $opt{mom_vcf}, 
