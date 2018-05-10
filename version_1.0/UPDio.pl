@@ -282,7 +282,7 @@ sub is_wanted {
     my $event_status = get_event_status_from_genotypes( $gt{child_gt}, $gt{mom_gt}, $gt{dad_gt} );
 
 	my $event_list_output_string = "$gt{chr}\t$gt{pos}\t$gt{ref}\t$gt{alt}\t$gt{child_gt}\t$gt{mom_gt}\t$gt{dad_gt}\t$event_status";
-	print {$fh_href->{events}} $event_list_output_string,"\n" unless ($opt{no_event_list});
+	print {$fh_href->{events}} $event_list_output_string,"\n" unless ($opt{no_event_list} or $event_status eq 'uninformative');
 
 	return { event_status => $event_status, chr => $gt{chr} }
 
