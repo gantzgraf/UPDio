@@ -479,7 +479,7 @@ sub parse_vcf {
             print Dumper $x_href; die "FATAL: I do not understand ID in this line $x_href->{ID}.\n";
         }
 		# Handle multisample vcf
-        if (scalar (keys %{ $x_href->{gtypes} }) == 3) {
+        if (scalar (keys %{ $x_href->{gtypes} }) >= 3) {
             return { 
                 chr    => $chr,
                 pos    => $x_href->{POS},
